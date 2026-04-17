@@ -1204,12 +1204,21 @@
             const [listLevel, setListLevel] = useState('detail'); // 'simple' or 'detail'
             const [searchQuery, setSearchQuery] = useState(''); // Search query
             const [mobileTab, setMobileTab] = useState('home'); // 'home'|'calendar'|'records'
+            const [activeCardIndex, setActiveCardIndex] = useState(0);
             const cardScrollRef = React.useRef(null);
 
-            const handleCardSwipeClick = () => {
+            const handleCardSwipeClick = (direction) => {
                 if (cardScrollRef.current) {
-                    cardScrollRef.current.scrollBy({ left: window.innerWidth * 0.85, behavior: 'smooth' });
+                    const scrollAmount = window.innerWidth * 0.85;
+                    cardScrollRef.current.scrollBy({ left: direction === 'right' ? scrollAmount : -scrollAmount, behavior: 'smooth' });
                 }
+            };
+
+            const handleCardScroll = (e) => {
+                const scrollLeft = e.target.scrollLeft;
+                const itemWidth = window.innerWidth * 0.85;
+                const index = Math.round(scrollLeft / itemWidth);
+                setActiveCardIndex(index);
             };
 
             // Quick Stats for Start Page
@@ -1435,15 +1444,33 @@
                     </div>
 
                     {/* Dashboard Cards Title & Swipe Cue (Mobile only) */}
-                    <div className={`flex md:hidden justify-between items-end mb-3 ${mobileTab === 'home' ? 'flex' : 'hidden'}`}>
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none flex items-center gap-1"><Icon name="bar-chart-3" size={12}/> 요약 통계</span>
-                        <button onClick={handleCardSwipeClick} className="flex items-center gap-1 text-[10px] text-blue-500 font-black bg-blue-50 px-3 py-1.5 rounded-full animate-pulse-soft active:scale-95 hover:bg-blue-100 transition-all">
-                            옆으로 넘기기 <Icon name="arrow-right" size={12} />
-                        </button>
-                    </div>
+                    {(() => {
+                        const cardMeta = [
+                            { title: viewMode === 'monthly' ? "매출 현황" : "총 매출", icon: "bar-chart-3" },
+                            { title: "총 지출 내역", icon: "credit-card" },
+                            { title: "순수익 (실제)", icon: "trending-up" },
+                            { title: "완료된 작업", icon: "layers" }
+                        ];
+                        const currentCard = cardMeta[Math.min(activeCardIndex, 3)] || cardMeta[0];
+                        return (
+                            <div className={`flex md:hidden justify-between items-center mb-4 ${mobileTab === 'home' ? 'flex' : 'hidden'}`}>
+                                <span className="text-[11px] font-black text-slate-700 uppercase tracking-widest leading-none flex items-center gap-1.5 transition-all w-32">
+                                    <Icon name={currentCard.icon} size={14} className="text-blue-500" /> {currentCard.title}
+                                </span>
+                                <div className="flex items-center gap-1.5">
+                                    <button onClick={() => handleCardSwipeClick('left')} className="flex items-center justify-center text-blue-500 bg-blue-50 w-8 h-8 rounded-full active:scale-95 transition-all shadow-sm" style={{ opacity: activeCardIndex === 0 ? 0.3 : 1 }} disabled={activeCardIndex === 0}>
+                                        <Icon name="chevron-left" size={16} />
+                                    </button>
+                                    <button onClick={() => handleCardSwipeClick('right')} className="flex items-center justify-center text-blue-500 bg-blue-50 w-8 h-8 rounded-full active:scale-95 transition-all shadow-sm" style={{ opacity: activeCardIndex >= 3 ? 0.3 : 1 }} disabled={activeCardIndex >= 3}>
+                                        <Icon name="chevron-right" size={16} />
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    })()}
 
                     {/* Dashboard Cards (Swipeable on Mobile) */}
-                    <div ref={cardScrollRef} className={`flex overflow-x-auto snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 pb-4 md:pb-0 mb-8 md:mb-12 animate-fade-up no-scrollbar -mx-6 px-6 sm:mx-0 sm:px-0 ${mobileTab === 'home' ? 'flex' : 'hidden md:grid'}`} style={{ animationDelay: '0.1s' }}>
+                    <div ref={cardScrollRef} onScroll={handleCardScroll} className={`flex overflow-x-auto snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 pb-4 md:pb-0 mb-8 md:mb-12 animate-fade-up no-scrollbar -mx-6 px-6 sm:mx-0 sm:px-0 ${mobileTab === 'home' ? 'flex' : 'hidden md:grid'}`} style={{ animationDelay: '0.1s' }}>
                         <div className="snap-center shrink-0 w-[85vw] sm:w-auto h-full"><Card title={selectedDay ? `${filter.month}월 ${selectedDay}일 매출` : viewMode === 'monthly' ? `${filter.month}월 입금액` : `${filter.year}년 총 매출`} value={totalIncome.toLocaleString() + '원'} sub="Gross Total revenue" icon="bar-chart-3" colorClass="from-blue-500 to-blue-700" /></div>
                         <div className="snap-center shrink-0 w-[85vw] sm:w-auto h-full"><Card title="총 지출 내역" value={totalExpense.toLocaleString() + '원'} sub="Total operational costs" icon="credit-card" colorClass="from-rose-500 to-red-700" /></div>
                         <div className="snap-center shrink-0 w-[85vw] sm:w-auto h-full"><Card title="순수익 (실제)" value={netProfit.toLocaleString() + '원'} sub={applyVat ? "VAT 10% Included" : "Net After Expenses"} icon="trending-up" colorClass="from-emerald-500 to-teal-700" /></div>
