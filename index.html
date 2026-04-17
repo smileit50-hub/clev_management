@@ -20,11 +20,11 @@
             --brand-blue: #2563eb;
             --brand-blue-dark: #1e40af;
             --brand-blue-light: #60a5fa;
-            --luxury-glass: rgba(255, 255, 255, 0.05);
-            --luxury-border: rgba(255, 255, 255, 0.08);
-            --bg-main: #0a0a0c;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
+            --luxury-glass: rgba(255, 255, 255, 0.95);
+            --luxury-border: rgba(0, 0, 0, 0.06);
+            --bg-main: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
         }
 
         body {
@@ -44,12 +44,12 @@
             background: var(--luxury-glass);
             backdrop-filter: blur(24px);
             border: 1px solid var(--luxury-border);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.06);
         }
 
         .glass-card:hover {
             border: 1px solid rgba(37, 99, 235, 0.2);
-            box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.15);
         }
 
         /* Animations */
@@ -166,9 +166,9 @@
             left: 0;
             right: 0;
             z-index: 100;
-            background: rgba(10, 10, 12, 0.85);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(24px);
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid rgba(0,0,0,0.06);
             display: flex;
             padding-bottom: env(safe-area-inset-bottom);
         }
@@ -214,8 +214,8 @@
             position: fixed;
             top: 0; right: 0; bottom: 0;
             width: min(85vw, 320px);
-            background: #0d0d10;
-            border-left: 1px solid rgba(255,255,255,0.06);
+            background: #ffffff;
+            border-left: 1px solid rgba(0,0,0,0.06);
             z-index: 200;
             display: flex;
             flex-direction: column;
@@ -361,10 +361,6 @@
                     <Icon name="list" size={20} />
                     내역
                 </button>
-                <button className={`bottom-nav-btn ${activeTab === 'settings' ? 'active' : ''}`} onClick={() => onTab('settings')}>
-                    <Icon name="settings" size={20} />
-                    설정
-                </button>
             </nav>
         );
 
@@ -373,52 +369,52 @@
             const [drawerOpen, setDrawerOpen] = useState(false);
             return (
                 <>
-                    <header className="header-mobile items-center justify-between px-4 py-3 border-b border-white/5 sticky top-0 z-50 bg-[#0a0a0c]/90 backdrop-blur-md">
-                        <button onClick={onGoHome} className="p-2 text-gray-400 hover:text-white transition">
-                            <Icon name="home" size={20} />
+                    <header className="header-mobile items-center justify-between px-4 py-3 border-b border-slate-100 sticky top-0 z-50 bg-white/90 backdrop-blur-md">
+                        <button onClick={onGoHome} className="p-2 text-slate-400 hover:text-slate-900 transition">
+                            <Icon name="arrow-left" size={20} />
                         </button>
                         <div className="flex items-center gap-2">
-                            <img src="assets/logo.png" alt="CLEV" className="w-8 h-8 object-contain" />
-                            <span className="font-brand font-black text-white text-lg tracking-tighter">CLEV <span className="text-gray-600 font-light">SALES</span></span>
+                            <img src="assets/logo.png" alt="CLEV" className="w-8 h-8 object-contain" style={{filter: 'invert(1)'}} />
+                            <span className="font-brand font-black text-slate-900 text-lg tracking-tighter">CLEV <span className="text-slate-400 font-light">SALES</span></span>
                         </div>
-                        <button onClick={() => setDrawerOpen(true)} className="p-2 text-gray-400 hover:text-white transition">
+                        <button onClick={() => setDrawerOpen(true)} className="p-2 text-slate-400 hover:text-slate-900 transition">
                             <Icon name="menu" size={22} />
                         </button>
                     </header>
 
                     {drawerOpen && (
                         <>
-                            <div className="fixed inset-0 bg-black/60 z-[199] backdrop-blur-sm" onClick={() => setDrawerOpen(false)} />
+                            <div className="fixed inset-0 bg-slate-900/40 z-[199] backdrop-blur-sm" onClick={() => setDrawerOpen(false)} />
                             <div className="drawer">
                                 <div className="flex justify-between items-center mb-8">
-                                    <span className="font-brand font-black text-white text-lg">메뉴</span>
-                                    <button onClick={() => setDrawerOpen(false)} className="text-gray-500 hover:text-white p-2"><Icon name="x" size={20} /></button>
+                                    <span className="font-brand font-black text-slate-900 text-lg">메뉴</span>
+                                    <button onClick={() => setDrawerOpen(false)} className="text-slate-500 hover:text-slate-900 p-2"><Icon name="x" size={20} /></button>
                                 </div>
 
                                 {/* View Mode */}
-                                <p className="text-[9px] font-black text-gray-600 uppercase tracking-widest mb-3">분석 모드</p>
-                                <div className="flex bg-white/5 p-1 rounded-xl border border-white/10 mb-6">
-                                    <button onClick={() => { setViewMode('monthly'); setDrawerOpen(false); }} className={`flex-1 py-2 rounded-lg text-[10px] font-black transition-all ${viewMode === 'monthly' ? 'bg-white text-blue-600' : 'text-gray-400'}`}>월간</button>
-                                    <button onClick={() => { setViewMode('yearly'); setDrawerOpen(false); }} className={`flex-1 py-2 rounded-lg text-[10px] font-black transition-all ${viewMode === 'yearly' ? 'bg-white text-blue-600' : 'text-gray-400'}`}>연간</button>
+                                <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3">분석 모드</p>
+                                <div className="flex bg-slate-50 p-1 rounded-xl border border-slate-200 mb-6 shadow-sm">
+                                    <button onClick={() => { setViewMode('monthly'); setDrawerOpen(false); }} className={`flex-1 py-2 rounded-lg text-[10px] font-black transition-all ${viewMode === 'monthly' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}>월간</button>
+                                    <button onClick={() => { setViewMode('yearly'); setDrawerOpen(false); }} className={`flex-1 py-2 rounded-lg text-[10px] font-black transition-all ${viewMode === 'yearly' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}>연간</button>
                                 </div>
 
                                 {/* VAT Toggle */}
-                                <p className="text-[9px] font-black text-gray-600 uppercase tracking-widest mb-3">세금</p>
-                                <button onClick={() => setApplyVat(!applyVat)} className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl border transition-all mb-6 text-xs font-black ${applyVat ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-white/5 border-white/10 text-gray-400'}`}>
-                                    <div className={`w-3 h-3 rounded-full ${applyVat ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]' : 'bg-gray-600'}`}></div>
+                                <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3">세금</p>
+                                <button onClick={() => setApplyVat(!applyVat)} className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl border transition-all mb-6 text-xs font-black shadow-sm ${applyVat ? 'bg-emerald-50 border-emerald-200 text-emerald-600' : 'bg-white border-slate-200 text-slate-500'}`}>
+                                    <div className={`w-3 h-3 rounded-full ${applyVat ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]' : 'bg-slate-300'}`}></div>
                                     10% 부가세 {applyVat ? '공제 중' : '미적용'}
                                 </button>
 
                                 {/* Data Actions */}
-                                <p className="text-[9px] font-black text-gray-600 uppercase tracking-widest mb-3">데이터</p>
+                                <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-3">데이터</p>
                                 <div className="flex flex-col gap-3">
-                                    <label className="cursor-pointer bg-white/5 hover:bg-white/10 px-4 py-3 rounded-xl border border-white/10 transition-all text-xs font-black text-gray-400 text-center">
+                                    <label className="cursor-pointer bg-white hover:bg-slate-50 px-4 py-3 rounded-xl border border-slate-200 transition-all text-xs font-black text-slate-500 text-center shadow-sm">
                                         📥 불러오기 <input type="file" className="hidden" onChange={(e) => { handleImport(e); setDrawerOpen(false); }} accept=".json" />
                                     </label>
-                                    <button onClick={() => { exportYearlyData(); setDrawerOpen(false); }} className="bg-blue-500/10 hover:bg-blue-500/20 px-4 py-3 rounded-xl border border-blue-500/20 transition-all text-xs font-black text-blue-400">
+                                    <button onClick={() => { exportYearlyData(); setDrawerOpen(false); }} className="bg-blue-50/50 hover:bg-blue-50 px-4 py-3 rounded-xl border border-blue-200 transition-all text-xs font-black text-blue-600 shadow-sm">
                                         📁 {filter.year}년 저장
                                     </button>
-                                    <button onClick={() => { setIsModalOpen(true); setDrawerOpen(false); }} className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-3 rounded-xl font-black text-sm shadow-xl active:scale-95 transition-all flex items-center justify-center gap-2">
+                                    <button onClick={() => { setIsModalOpen(true); setDrawerOpen(false); }} className="bg-blue-600 hover:bg-blue-500 text-white px-4 py-3 rounded-xl font-black text-sm shadow-lg shadow-blue-500/20 active:scale-95 transition-all flex items-center justify-center gap-2">
                                         <Icon name="plus" size={16} /> 신규 기록
                                     </button>
                                 </div>
@@ -430,21 +426,21 @@
         };
 
         const Card = ({ title, value, sub, icon, trend, colorClass = "from-blue-500 to-indigo-600" }) => (
-            <div className="glass-card rounded-[2rem] md:rounded-[2.5rem] p-5 md:p-10 flex flex-col justify-between overflow-hidden relative group transition-all duration-700 hover:-translate-y-2 md:hover:-translate-y-3 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)] border border-white/5 hover:border-blue-500/20">
+            <div className="glass-card rounded-[2rem] md:rounded-[2.5rem] p-5 md:p-10 flex flex-col justify-between overflow-hidden relative group transition-all duration-700 hover:-translate-y-2 md:hover:-translate-y-3 hover:shadow-2xl hover:shadow-slate-200/50 border border-slate-200/50 hover:border-blue-500/20">
                 <div className={`absolute -top-24 -right-24 w-64 h-64 bg-gradient-to-br ${colorClass} opacity-0 group-hover:opacity-10 blur-[100px] transition-opacity duration-1000`}></div>
                 <div className="flex justify-between items-start mb-4 md:mb-8">
-                    <div className="p-2.5 md:p-4 bg-white/5 rounded-xl md:rounded-2xl border border-white/5 shadow-inner group-hover:bg-blue-600/10 group-hover:border-blue-500/20 transition-colors">
-                        <Icon name={icon} size={22} className="text-blue-500 group-hover:text-blue-400" />
+                    <div className="p-2.5 md:p-4 bg-slate-50 rounded-xl md:rounded-2xl border border-slate-100 shadow-sm group-hover:bg-blue-50 group-hover:border-blue-200 transition-colors">
+                        <Icon name={icon} size={22} className="text-blue-500 group-hover:text-blue-600" />
                     </div>
                     {trend && (
-                        <div className={`px-2 py-1 md:px-3 md:py-1.5 rounded-full text-[9px] md:text-[10px] font-black border ${trend > 0 ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-500' : 'bg-rose-500/10 border-rose-500/20 text-rose-500'}`}>
+                        <div className={`px-2 py-1 md:px-3 md:py-1.5 rounded-full text-[9px] md:text-[10px] font-black border shadow-sm ${trend > 0 ? 'bg-emerald-50 border-emerald-200 text-emerald-600' : 'bg-rose-50 border-rose-200 text-rose-600'}`}>
                             {trend > 0 ? '▲' : '▼'} {Math.abs(trend)}%
                         </div>
                     )}
                 </div>
-                <div>
-                    <p className="text-gray-500 font-bold text-[9px] md:text-xs mb-1.5 md:mb-3 uppercase tracking-[0.2em]">{title}</p>
-                    <h2 className="text-xl md:text-4xl font-brand font-black text-white tracking-tighter mb-1 md:mb-2 group-hover:scale-[1.02] origin-left transition-transform duration-500">{value}</h2>
+                <div className="relative z-10">
+                    <p className="text-slate-500 font-bold text-[9px] md:text-xs mb-1.5 md:mb-3 uppercase tracking-[0.2em]">{title}</p>
+                    <h2 className="text-xl md:text-4xl font-brand font-black text-slate-900 tracking-tighter mb-1 md:mb-2 group-hover:scale-[1.02] origin-left transition-transform duration-500">{value}</h2>
                     <div className="flex items-center gap-2 mt-2 md:mt-4">
                         <div className="h-1 w-6 md:w-8 bg-blue-600 rounded-full"></div>
                         <p className="text-[9px] md:text-[10px] text-gray-600 font-black uppercase tracking-widest">{sub}</p>
@@ -487,10 +483,10 @@
                             const val = maxVal * level;
                             const y = height - padding - (level * (height - padding * 2));
                             return (
-                                <g key={i}>
-                                    <line x1={padding} y1={y} x2={width - padding} y2={y} stroke="#ffffff" strokeOpacity="0.05" strokeWidth="1" strokeDasharray="4 4" />
-                                    <text x={padding - 8} y={y + 3} textAnchor="end" fill="#64748b" className="text-[8px] font-bold tracking-tighter opacity-70">{formatY(val)}</text>
-                                </g>
+                            <g key={i}>
+                                <line x1={padding} y1={y} x2={width - padding} y2={y} stroke="#000000" strokeOpacity="0.05" strokeWidth="1" strokeDasharray="4 4" />
+                                <text x={padding - 8} y={y + 3} textAnchor="end" fill="#64748b" className="text-[8px] font-bold tracking-tighter opacity-70">{formatY(val)}</text>
+                            </g>
                             );
                         })}
                     </g>
@@ -560,9 +556,9 @@
                             const ip = incomePoints[i];
                             return (
                                 <g key={i} className="group/dot cursor-pointer">
-                                    <circle cx={ip.x} cy={ip.y} r="3" fill="#0a0a0c" stroke="#2563eb" strokeWidth="1.5" opacity="0.2" />
-                                    <circle cx={p.x} cy={p.y} r="5" fill="#0a0a0c" stroke="#10b981" strokeWidth="2.5" className="transition-all duration-300 group-hover/dot:r-7 group-hover/dot:stroke-white" />
-                                    <text x={p.x} y={p.y - 15} textAnchor="middle" fill="#34d399" className="text-[9px] font-black opacity-0 group-hover/dot:opacity-100 transition-all transform translate-y-2 group-hover/dot:translate-y-0 tracking-tighter">
+                                    <circle cx={ip.x} cy={ip.y} r="3" fill="#ffffff" stroke="#2563eb" strokeWidth="1.5" opacity="0.2" />
+                                    <circle cx={p.x} cy={p.y} r="5" fill="#ffffff" stroke="#10b981" strokeWidth="2.5" className="transition-all duration-300 group-hover/dot:r-7 group-hover/dot:stroke-emerald-400" />
+                                    <text x={p.x} y={p.y - 15} textAnchor="middle" fill="#10b981" className="text-[9px] font-black opacity-0 group-hover/dot:opacity-100 transition-all transform translate-y-2 group-hover/dot:translate-y-0 tracking-tighter">
                                         {d.profit?.toLocaleString()}
                                     </text>
                                     <text x={ip.x} y={height - 10} textAnchor="middle" fill="#475569" className="text-[8px] font-bold uppercase tracking-widest opacity-60">{d.label}</text>
@@ -607,49 +603,49 @@
                         <div className="flex items-baseline gap-1 relative z-20">
                             <div className="relative group">
                                 <select 
-                                    className="appearance-none bg-transparent text-xl font-brand font-black text-white hover:text-blue-400 cursor-pointer pr-4 focus:outline-none"
+                                    className="appearance-none bg-transparent text-xl font-brand font-black text-slate-900 hover:text-blue-600 cursor-pointer pr-4 focus:outline-none"
                                     value={year}
                                     onChange={(e) => onMonthSelect && onMonthSelect(parseInt(e.target.value, 10), month)}
                                 >
-                                    {Array.from({length: 11}, (_, i) => new Date().getFullYear() - 5 + i).map(y => <option key={y} value={y} className="bg-[#0a0a0c] text-base">{y}년</option>)}
+                                    {Array.from({length: 11}, (_, i) => new Date().getFullYear() - 5 + i).map(y => <option key={y} value={y} className="bg-white text-base">{y}년</option>)}
                                 </select>
-                                <Icon name="chevron-down" size={14} className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none group-hover:text-blue-400 transition-colors shadow-sm" />
+                                <Icon name="chevron-down" size={14} className="absolute right-0 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-hover:text-blue-600 transition-colors shadow-sm" />
                             </div>
                             
                             <div className="relative group ml-1">
                                 <select 
-                                    className="appearance-none bg-transparent text-xl font-brand font-black text-white hover:text-blue-400 cursor-pointer pr-4 focus:outline-none"
+                                    className="appearance-none bg-transparent text-xl font-brand font-black text-slate-900 hover:text-blue-600 cursor-pointer pr-4 focus:outline-none"
                                     value={month}
                                     onChange={(e) => onMonthSelect && onMonthSelect(year, parseInt(e.target.value, 10))}
                                 >
-                                    {Array.from({length: 12}, (_, i) => i + 1).map(m => <option key={m} value={m} className="bg-[#0a0a0c] text-base">{m}월</option>)}
+                                    {Array.from({length: 12}, (_, i) => i + 1).map(m => <option key={m} value={m} className="bg-white text-base">{m}월</option>)}
                                 </select>
-                                <Icon name="chevron-down" size={14} className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none group-hover:text-blue-400 transition-colors shadow-sm" />
+                                <Icon name="chevron-down" size={14} className="absolute right-0 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none group-hover:text-blue-600 transition-colors shadow-sm" />
                             </div>
                         </div>
                         <div className="flex gap-2 items-center">
-                            <button onClick={() => onMonthChange(-1)} className="p-1 min-w-[28px] h-[28px] flex items-center justify-center bg-white/5 text-gray-400 rounded-lg hover:bg-blue-600 hover:text-white transition-all active:scale-95"><Icon name="chevron-left" size={14} /></button>
-                            <div className="flex bg-[#0a0a0c]/80 p-0.5 rounded-lg border border-white/10 backdrop-blur-sm">
+                            <button onClick={() => onMonthChange(-1)} className="p-1 min-w-[28px] h-[28px] flex items-center justify-center bg-white border border-slate-200 text-slate-400 rounded-lg hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all active:scale-95 shadow-sm"><Icon name="chevron-left" size={14} /></button>
+                            <div className="flex bg-slate-50/80 p-0.5 rounded-lg border border-slate-200 backdrop-blur-sm shadow-sm">
                                 <button 
                                     onClick={() => onViewAll && onViewAll('simple')}
-                                    className={`px-3 py-1 rounded-md text-[10px] font-black transition-all active:scale-95 ${selectedDay === null ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-400 hover:text-white hover:bg-white/10'}`}
+                                    className={`px-3 py-1 rounded-md text-[10px] font-black transition-all active:scale-95 ${selectedDay === null ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-100'}`}
                                 >
                                     요약보기
                                 </button>
                                 <button 
                                     onClick={() => onViewAll && onViewAll('detail')}
-                                    className="px-3 py-1 rounded-md text-[10px] font-black transition-all active:scale-95 text-gray-400 hover:text-white hover:bg-white/10 border-l border-white/5 ml-0.5 pl-3.5"
+                                    className="px-3 py-1 rounded-md text-[10px] font-black transition-all active:scale-95 text-slate-500 hover:text-slate-900 hover:bg-slate-100 border-l border-slate-200 ml-0.5 pl-3.5"
                                 >
                                     상세보기
                                 </button>
                             </div>
-                            <button onClick={() => onMonthChange(1)} className="p-1 min-w-[28px] h-[28px] flex items-center justify-center bg-white/5 text-gray-400 rounded-lg hover:bg-blue-600 hover:text-white transition-all active:scale-95"><Icon name="chevron-right" size={14} /></button>
+                            <button onClick={() => onMonthChange(1)} className="p-1 min-w-[28px] h-[28px] flex items-center justify-center bg-white border border-slate-200 text-slate-400 rounded-lg hover:bg-blue-600 hover:border-blue-600 hover:text-white transition-all active:scale-95 shadow-sm"><Icon name="chevron-right" size={14} /></button>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-7 gap-0.5 mb-1">
                         {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => (
-                            <div key={d} className="text-center text-[9px] font-black text-gray-600 uppercase py-1">{d}</div>
+                            <div key={d} className="text-center text-[9px] font-black text-slate-400 uppercase py-1">{d}</div>
                         ))}
                     </div>
 
@@ -667,8 +663,8 @@
                                             onClick={() => onDateClick(day)}
                                             className={`w-full h-full rounded-lg text-[10px] font-bold transition-all flex flex-col items-center justify-center gap-0.5 group/day border
                                                 ${selectedDay === day ? 'bg-blue-600 text-white border-blue-400 shadow-lg scale-105 z-10' :
-                                                    isToday(day) ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
-                                                        'bg-white/5 text-gray-500 border-transparent hover:bg-white/10 hover:text-white'}`}
+                                                    isToday(day) ? 'bg-blue-50 text-blue-600 border-blue-200' :
+                                                        'bg-white text-slate-500 border-slate-100 hover:bg-slate-50 hover:text-slate-900 shadow-sm hover:shadow'}`}
                                         >
                                             <span className={selectedDay === day ? 'font-black' : ''}>{day}</span>
                                             <div className="flex gap-1">
@@ -682,15 +678,15 @@
                         })}
                     </div>
 
-                    <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between">
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                         <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2">
                                 <div className="w-4 h-[2px] rounded-full bg-blue-500"></div>
-                                <span className="text-[8px] font-black text-gray-500 uppercase tracking-widest">Income</span>
+                                <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Income</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <div className="w-4 h-[2px] rounded-full bg-rose-500"></div>
-                                <span className="text-[8px] font-black text-gray-500 uppercase tracking-widest">Expense</span>
+                                <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Expense</span>
                             </div>
                         </div>
                         {selectedDay && <span className="text-[8px] font-black text-blue-600 uppercase tracking-widest">Day {selectedDay} Active</span>}
@@ -728,7 +724,7 @@
                                     className="transition-all duration-500 hover:opacity-80" />
                             );
                         })}
-                        <text x="100" y="105" textAnchor="middle" fill="white" className="text-lg font-black font-brand">TOP 1</text>
+                        <text x="100" y="105" textAnchor="middle" fill="#0f172a" className="text-lg font-black font-brand">TOP 1</text>
                         <text x="100" y="125" textAnchor="middle" fill="#64748b" className="text-[8px] font-black uppercase tracking-widest">{data[0]?.label}</text>
                     </svg>
                     <div className="flex-1 space-y-2">
@@ -736,9 +732,9 @@
                             <div key={i} className="flex items-center justify-between group">
                                 <div className="flex items-center gap-2">
                                     <div className="w-2 h-2 rounded-full" style={{ background: d.color }}></div>
-                                    <span className="text-[10px] font-black text-gray-500 group-hover:text-white transition-colors">{d.label}</span>
+                                    <span className="text-[10px] font-black text-slate-500 group-hover:text-slate-900 transition-colors">{d.label}</span>
                                 </div>
-                                <span className="text-[10px] font-brand font-bold text-gray-600">{((d.value / total) * 100).toFixed(1)}%</span>
+                                <span className="text-[10px] font-brand font-bold text-slate-600">{((d.value / total) * 100).toFixed(1)}%</span>
                             </div>
                         ))}
                     </div>
@@ -765,28 +761,28 @@
 
             return (
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center p-6 bg-black/80 backdrop-blur-md transition-all duration-300">
-                    <div className="glass-card form-modal-inner rounded-[3rem] w-full max-w-lg p-10 relative bg-[#0a0a0c] shadow-2xl">
-                        <button onClick={onClose} className="absolute top-8 right-8 text-gray-500 hover:text-white transition-colors"><Icon name="x" /></button>
+                    <div className="glass-card form-modal-inner rounded-[3rem] w-full max-w-lg p-10 relative bg-white shadow-2xl">
+                        <button onClick={onClose} className="absolute top-8 right-8 text-slate-400 hover:text-slate-900 transition-colors"><Icon name="x" /></button>
 
-                        <div className="flex bg-white/5 p-1 rounded-2xl border border-white/10 mb-8 w-fit mx-auto">
-                            <button onClick={() => setRecordType('income')} className={`px-8 py-2 rounded-xl text-[10px] font-black transition-all ${recordType === 'income' ? 'bg-blue-600 text-white shadow-lg' : 'text-gray-500 hover:text-white'}`}>매출 등록</button>
-                            <button onClick={() => setRecordType('expense')} className={`px-8 py-2 rounded-xl text-[10px] font-black transition-all ${recordType === 'expense' ? 'bg-rose-600 text-white shadow-lg' : 'text-gray-500 hover:text-white'}`}>지출 등록</button>
+                        <div className="flex bg-slate-50 p-1 rounded-2xl border border-slate-200 mb-8 w-fit mx-auto shadow-sm">
+                            <button onClick={() => setRecordType('income')} className={`px-8 py-2 rounded-xl text-[10px] font-black transition-all ${recordType === 'income' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-900'}`}>매출 등록</button>
+                            <button onClick={() => setRecordType('expense')} className={`px-8 py-2 rounded-xl text-[10px] font-black transition-all ${recordType === 'expense' ? 'bg-rose-600 text-white shadow-lg' : 'text-slate-500 hover:text-slate-900'}`}>지출 등록</button>
                         </div>
 
-                        <h2 className="text-3xl font-black mb-8 text-white tracking-tight text-center">{recordType === 'income' ? '매출 내역 등록' : '지출 내역 등록'}</h2>
+                        <h2 className="text-3xl font-black mb-8 text-slate-900 tracking-tight text-center">{recordType === 'income' ? '매출 내역 등록' : '지출 내역 등록'}</h2>
 
                         <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); onSave({ ...formData, amount: formData.amount.replace(/,/g, '') }); onClose(); }}>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">날짜</label>
-                                    <input type="date" required value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-white" />
+                                    <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 ml-1">날짜</label>
+                                    <input type="date" required value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-slate-900 shadow-sm" />
                                 </div>
                                 <div>
-                                    <label className="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-1">금액 (원)</label>
+                                    <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 ml-1">금액 (원)</label>
                                     <input type="text" required placeholder="0" value={formData.amount} onChange={(e) => {
                                         const raw = e.target.value.replace(/[^0-9]/g, '');
                                         setFormData({ ...formData, amount: raw ? Number(raw).toLocaleString() : '' });
-                                    }} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-white font-bold mb-2" />
+                                    }} className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-slate-900 font-bold mb-2 shadow-sm placeholder-slate-400" />
                                     <div className="flex gap-2">
                                         {[ {label: '천', zeros: '000'}, {label: '만', zeros: '0000'}, {label: '십만', zeros: '00000'}, {label: '백만', zeros: '000000'} ].map(unit => (
                                             <button type="button" key={unit.label} onClick={() => {
@@ -794,7 +790,7 @@
                                                 const prefix = currentString === '' ? '1' : currentString;
                                                 const nextAmountString = prefix + unit.zeros;
                                                 setFormData({ ...formData, amount: Number(nextAmountString).toLocaleString() });
-                                            }} className="flex-1 py-2 bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/30 rounded-xl text-[10px] font-black text-gray-400 hover:text-blue-400 transition-all shadow-sm active:scale-95">
+                                            }} className="flex-1 py-2 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-200 rounded-xl text-[10px] font-black text-slate-500 hover:text-blue-600 transition-all shadow-sm active:scale-95">
                                                 {unit.label}
                                             </button>
                                         ))}
@@ -806,32 +802,32 @@
                                 <>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                         <div>
-                                            <label className="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">고객/상호명</label>
-                                            <input type="text" required placeholder="예: 스타벅스 강남" value={formData.client} onChange={(e) => setFormData({ ...formData, client: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-white" />
+                                            <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 ml-2">고객/상호명</label>
+                                            <input type="text" required placeholder="예: 스타벅스 강남" value={formData.client} onChange={(e) => setFormData({ ...formData, client: e.target.value })} className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-slate-900 shadow-sm placeholder-slate-400" />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">유입 경로</label>
-                                            <select value={formData.leadSource} onChange={(e) => setFormData({ ...formData, leadSource: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-white appearance-none">
-                                                {LEAD_SOURCES.map(source => <option key={source} value={source} className="bg-[#0a0a0c]">{source}</option>)}
+                                            <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 ml-2">유입 경로</label>
+                                            <select value={formData.leadSource} onChange={(e) => setFormData({ ...formData, leadSource: e.target.value })} className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-slate-900 appearance-none shadow-sm">
+                                                {LEAD_SOURCES.map(source => <option key={source} value={source} className="bg-white">{source}</option>)}
                                             </select>
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                         <div>
-                                            <label className="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">분류</label>
-                                            <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-white appearance-none">
-                                                <option value="상가" className="bg-[#0a0a0c]">상가 유리창</option>
-                                                <option value="오피스" className="bg-[#0a0a0c]">오피스 클리닝</option>
-                                                <option value="특수" className="bg-[#0a0a0c]">특수 코팅/세정</option>
-                                                <option value="기타" className="bg-[#0a0a0c]">기타 작업</option>
+                                            <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 ml-2">분류</label>
+                                            <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-slate-900 appearance-none shadow-sm">
+                                                <option value="상가" className="bg-white">상가 유리창</option>
+                                                <option value="오피스" className="bg-white">오피스 클리닝</option>
+                                                <option value="특수" className="bg-white">특수 코팅/세정</option>
+                                                <option value="기타" className="bg-white">기타 작업</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">입금 상태</label>
-                                            <select value={formData.status} onChange={(e) => setFormData({ ...formData, status: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-white appearance-none">
-                                                <option value="입금완료" className="bg-[#0a0a0c]">입금 완료</option>
-                                                <option value="미입금" className="bg-[#0a0a0c]">미입금 (청구)</option>
-                                                <option value="부분입금" className="bg-[#0a0a0c]">부분 입금</option>
+                                            <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 ml-2">입금 상태</label>
+                                            <select value={formData.status} onChange={(e) => setFormData({ ...formData, status: e.target.value })} className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:border-blue-500 transition-all text-slate-900 appearance-none shadow-sm">
+                                                <option value="입금완료" className="bg-white">입금 완료</option>
+                                                <option value="미입금" className="bg-white">미입금 (청구)</option>
+                                                <option value="부분입금" className="bg-white">부분 입금</option>
                                             </select>
                                         </div>
                                     </div>
@@ -839,11 +835,11 @@
                             ) : (
                                 <div className="space-y-6">
                                     <div>
-                                        <label className="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">지출 상세 내용</label>
-                                        <input type="text" required placeholder="예: 현장 인건비 및 식대" value={formData.client} onChange={(e) => setFormData({ ...formData, client: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 focus:outline-none focus:border-rose-500 transition-all text-white" />
+                                        <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 ml-2">지출 상세 내용</label>
+                                        <input type="text" required placeholder="예: 현장 인건비 및 식대" value={formData.client} onChange={(e) => setFormData({ ...formData, client: e.target.value })} className="w-full bg-white border border-slate-200 rounded-2xl px-5 py-4 focus:outline-none focus:border-rose-500 transition-all text-slate-900 shadow-sm placeholder-slate-400" />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">지출 항목 (복수 선택 가능)</label>
+                                        <label className="block text-xs font-black text-slate-500 uppercase tracking-widest mb-2 ml-2">지출 항목 (복수 선택 가능)</label>
                                         <div className="flex flex-wrap gap-2">
                                             {EXPENSE_CATEGORIES.map(cat => {
                                                 const isSelected = Array.isArray(formData.category) ? formData.category.includes(cat) : formData.category === cat;
@@ -856,7 +852,7 @@
                                                             const next = isSelected ? current.filter(c => c !== cat) : [...current, cat];
                                                             setFormData({ ...formData, category: next });
                                                         }}
-                                                        className={`px-4 py-2 rounded-xl text-[10px] font-black transition-all border ${isSelected ? 'bg-rose-600 border-rose-400 text-white shadow-lg' : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'
+                                                        className={`px-4 py-2 rounded-xl text-[10px] font-black transition-all border shadow-sm ${isSelected ? 'bg-rose-600 border-rose-400 text-white shadow-md' : 'bg-slate-50 border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-100'
                                                             }`}
                                                     >
                                                         {cat}
@@ -1074,68 +1070,68 @@
             };
 
             return (
-                <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-[#0a0a0c] overflow-hidden relative">
+                <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-white overflow-hidden relative">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 blur-[120px] rounded-full animate-pulse-soft"></div>
 
                     <div className="relative z-10 flex flex-col items-center animate-fade-up">
                         <div className="w-32 h-32 mb-10 animate-pulse-soft">
-                            <img src="assets/logo.png" alt="CLEV" className="w-full h-full object-contain" />
+                            <img src="assets/logo.png" alt="CLEV" className="w-full h-full object-contain" style={{filter: 'invert(1)'}} />
                         </div>
                         <h2 className="text-sm font-black text-blue-500 uppercase tracking-[0.5em] mb-4">{greeting}, Maestro</h2>
-                        <h1 className="text-6xl md:text-8xl font-brand font-black text-white tracking-tighter mb-12 text-center leading-none">
-                            CLEV <span className="text-gray-800">MAESTRO</span>
+                        <h1 className="text-6xl md:text-8xl font-brand font-black text-slate-900 tracking-tighter mb-12 text-center leading-none">
+                            CLEV <span className="text-slate-300">MAESTRO</span>
                         </h1>
 
                         <div className="glass-card rounded-[2rem] md:rounded-full p-2 flex flex-row flex-wrap justify-center items-center gap-1 md:gap-2 mb-16 animate-fade-up shadow-2xl backdrop-blur-md">
-                            <div className="flex items-center gap-3 px-4 md:px-6 py-2 md:py-3 hover:bg-white/5 rounded-full transition-colors">
-                                <div className="p-1.5 md:p-2 bg-blue-500/10 rounded-full text-blue-500"><Icon name="bar-chart-3" size={16} /></div>
+                            <div className="flex items-center gap-3 px-4 md:px-6 py-2 md:py-3 hover:bg-slate-50 rounded-full transition-colors">
+                                <div className="p-1.5 md:p-2 bg-blue-500/10 rounded-full text-blue-600"><Icon name="bar-chart-3" size={16} /></div>
                                 <div className="text-left">
-                                    <p className="text-[8px] font-black text-gray-500 tracking-widest uppercase mb-0.5">이번 달 총 매출</p>
-                                    <p className="text-xs md:text-sm font-brand font-black text-white leading-none">{stats.revenue.toLocaleString()}원</p>
+                                    <p className="text-[8px] font-black text-slate-500 tracking-widest uppercase mb-0.5">이번 달 총 매출</p>
+                                    <p className="text-xs md:text-sm font-brand font-black text-slate-900 leading-none">{stats.revenue.toLocaleString()}원</p>
                                 </div>
                             </div>
-                            <div className="hidden md:block w-px h-8 bg-white/10"></div>
-                            <div className="flex items-center gap-3 px-4 md:px-6 py-2 md:py-3 hover:bg-white/5 rounded-full transition-colors">
-                                <div className="p-1.5 md:p-2 bg-emerald-500/10 rounded-full text-emerald-500"><Icon name="check-circle" size={16} /></div>
+                            <div className="hidden md:block w-px h-8 bg-slate-200"></div>
+                            <div className="flex items-center gap-3 px-4 md:px-6 py-2 md:py-3 hover:bg-slate-50 rounded-full transition-colors">
+                                <div className="p-1.5 md:p-2 bg-emerald-500/10 rounded-full text-emerald-600"><Icon name="check-circle" size={16} /></div>
                                 <div className="text-left">
-                                    <p className="text-[8px] font-black text-gray-500 tracking-widest uppercase mb-0.5">이번 달 작업 건수</p>
-                                    <p className="text-xs md:text-sm font-brand font-black text-white leading-none">{stats.count}건</p>
+                                    <p className="text-[8px] font-black text-slate-500 tracking-widest uppercase mb-0.5">이번 달 작업 건수</p>
+                                    <p className="text-xs md:text-sm font-brand font-black text-slate-900 leading-none">{stats.count}건</p>
                                 </div>
                             </div>
-                            <div className="hidden md:block w-px h-8 bg-white/10"></div>
-                            <div className="flex items-center gap-3 px-4 md:px-6 py-2 md:py-3 hover:bg-white/5 rounded-full transition-colors">
-                                <div className="p-1.5 md:p-2 bg-orange-500/10 rounded-full text-orange-500"><Icon name="alert-circle" size={16} /></div>
+                            <div className="hidden md:block w-px h-8 bg-slate-200"></div>
+                            <div className="flex items-center gap-3 px-4 md:px-6 py-2 md:py-3 hover:bg-slate-50 rounded-full transition-colors">
+                                <div className="p-1.5 md:p-2 bg-orange-500/10 rounded-full text-orange-600"><Icon name="alert-circle" size={16} /></div>
                                 <div className="text-left">
-                                    <p className="text-[8px] font-black text-gray-500 tracking-widest uppercase mb-0.5">미입금 (청구)</p>
-                                    <p className="text-xs md:text-sm font-brand font-black text-white leading-none">{stats.unpaid}건</p>
+                                    <p className="text-[8px] font-black text-slate-500 tracking-widest uppercase mb-0.5">미입금 (청구)</p>
+                                    <p className="text-xs md:text-sm font-brand font-black text-slate-900 leading-none">{stats.unpaid}건</p>
                                 </div>
                             </div>
                         </div>
 
                         <button
                             onClick={() => setShowAuth(true)}
-                            className="group relative px-12 py-5 rounded-[2.5rem] transition-all duration-500 ease-out hover:scale-105 active:scale-95 flex items-center gap-6 overflow-hidden border border-white/10 bg-[#0a0a0c]/80 hover:bg-white/5 hover:border-blue-500/50 backdrop-blur-xl shadow-2xl"
+                            className="group relative px-12 py-5 rounded-[2.5rem] transition-all duration-500 ease-out hover:scale-105 active:scale-95 flex items-center gap-6 overflow-hidden border border-slate-200 bg-white hover:bg-slate-50 hover:border-blue-500/50 backdrop-blur-xl shadow-xl"
                         >
-                            <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out"></div>
-                            <span className="relative z-10 text-white font-light text-lg tracking-[0.3em]">대시보드 런칭</span>
+                            <div className="absolute inset-0 -translate-x-[150%] bg-gradient-to-r from-transparent via-blue-500/5 to-transparent group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out"></div>
+                            <span className="relative z-10 text-slate-900 font-light text-lg tracking-[0.3em]">대시보드 런칭</span>
                             <div className="flex items-center relative z-10">
-                                <div className="w-6 h-[1px] bg-white/30 group-hover:w-10 group-hover:bg-blue-400 transition-all duration-500 ease-out"></div>
-                                <Icon name="chevron-right" size={18} className="text-gray-400 group-hover:text-blue-400 transition-colors duration-500 group-hover:translate-x-1" />
+                                <div className="w-6 h-[1px] bg-slate-300 group-hover:w-10 group-hover:bg-blue-500 transition-all duration-500 ease-out"></div>
+                                <Icon name="chevron-right" size={18} className="text-slate-400 group-hover:text-blue-500 transition-colors duration-500 group-hover:translate-x-1" />
                             </div>
                         </button>
                     </div>
 
-                    <p className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[10px] font-black text-gray-800 uppercase tracking-[0.8em]">Business Intelligence Maestro</p>
+                    <p className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[10px] font-black text-slate-300 uppercase tracking-[0.8em]">Business Intelligence Maestro</p>
 
                     {showAuth && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-md animate-fade-up">
-                            <div className="glass-card rounded-[2.5rem] w-full max-w-sm p-10 relative bg-[#0a0a0c]/80 shadow-2xl flex flex-col items-center">
-                                <button onClick={() => { setShowAuth(false); setPassword(''); setIsChangeMode(false); }} className="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors"><Icon name="x" size={20}/></button>
-                                <div className={`w-16 h-16 flex items-center justify-center rounded-2xl mb-6 transition-colors ${success ? 'bg-emerald-500/10 text-emerald-500' : 'bg-blue-500/10 text-blue-500'}`}>
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-md animate-fade-up">
+                            <div className="glass-card rounded-[2.5rem] w-full max-w-sm p-10 relative bg-white/95 shadow-2xl flex flex-col items-center">
+                                <button onClick={() => { setShowAuth(false); setPassword(''); setIsChangeMode(false); }} className="absolute top-6 right-6 text-slate-400 hover:text-slate-900 transition-colors"><Icon name="x" size={20}/></button>
+                                <div className={`w-16 h-16 flex items-center justify-center rounded-2xl mb-6 transition-colors ${success ? 'bg-emerald-500/10 text-emerald-600' : 'bg-blue-500/10 text-blue-600'}`}>
                                     <Icon name={success ? "check" : isChangeMode ? "key" : "lock"} size={28} />
                                 </div>
-                                <h3 className="text-xl font-brand font-black text-white mb-2 tracking-[0.2em] uppercase">{isChangeMode ? 'Change PIN' : 'Admin Auth'}</h3>
-                                <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-8 text-center leading-relaxed">
+                                <h3 className="text-xl font-brand font-black text-slate-900 mb-2 tracking-[0.2em] uppercase">{isChangeMode ? 'Change PIN' : 'Admin Auth'}</h3>
+                                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-8 text-center leading-relaxed">
                                     {success ? '비밀번호가 성공적으로 변경되었습니다.' : (isChangeMode ? '새로운 관리자 코드를 설정합니다.' : '접근 권한이 필요합니다. 관리자 코드를 입력해주세요.')}
                                 </p>
                                 
@@ -1149,7 +1145,7 @@
                                                     placeholder={isChangeMode ? "CURRENT PIN" : "PIN CODE"}
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
-                                                    className={`w-full bg-[#0a0a0c]/80 border ${error ? 'border-red-500 text-red-500' : 'border-white/10 text-white focus:border-blue-500'} rounded-2xl px-6 py-4 text-center tracking-[0.5em] font-black focus:outline-none transition-colors shadow-inner`}
+                                                    className={`w-full bg-slate-50 border ${error ? 'border-red-500 text-red-500' : 'border-slate-200 text-slate-900 focus:border-blue-500'} rounded-2xl px-6 py-4 text-center tracking-[0.5em] font-black focus:outline-none transition-colors shadow-sm`}
                                                 />
                                                 {error && <p className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-red-500 text-[9px] font-black uppercase tracking-widest animate-[shake_0.5s_ease-in-out]">Incorrect Code</p>}
                                             </div>
@@ -1368,31 +1364,31 @@
                         <header className="header-desktop flex-col md:flex-row justify-between items-center mb-16 gap-8 animate-fade-up">
                         <div className="flex items-center space-x-4">
                             <button onClick={() => setView('start')} className="mr-4 px-5 py-3 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 hover:border-blue-500 rounded-2xl text-blue-400 hover:text-white transition-all shadow-lg hover:shadow-blue-500/25 active:scale-95 flex items-center gap-2 group" title="첫 페이지로 돌아가기">
-                                <Icon name="home" size={18} className="group-hover:-translate-x-0.5 transition-transform" />
-                                <span className="text-xs font-black uppercase tracking-widest">Home</span>
+                                <Icon name="arrow-left" size={18} className="group-hover:-translate-x-1 transition-transform" />
+                                <span className="text-xs font-black uppercase tracking-widest">Back</span>
                             </button>
                             <div className="w-16 h-16 flex items-center justify-center p-2 overflow-hidden">
-                                <img src="assets/logo.png" alt="CLEV" className="w-full h-full object-contain" />
+                                <img src="assets/logo.png" alt="CLEV" className="w-full h-full object-contain" style={{filter: 'invert(1)'}} />
                             </div>
                             <div>
-                                <h1 className="text-3xl font-brand font-black text-white tracking-tighter">CLEV <span className="font-light text-gray-500">SALES</span></h1>
-                                <p className="text-[10px] text-gray-500 font-bold tracking-[0.3em] uppercase">Premium Asset Management</p>
+                                <h1 className="text-3xl font-brand font-black text-slate-900 tracking-tighter">CLEV <span className="font-light text-slate-400">SALES</span></h1>
+                                <p className="text-[10px] text-slate-400 font-bold tracking-[0.3em] uppercase">Premium Asset Management</p>
                             </div>
                         </div>
                         <div className="flex items-center gap-4">
-                            <div className="flex bg-white/5 p-1 rounded-2xl border border-white/10 mr-4">
-                                <button onClick={() => setViewMode('monthly')} className={`px-6 py-2 rounded-xl text-[10px] font-black transition-all ${viewMode === 'monthly' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-400 hover:text-white'}`}>월간 분석</button>
-                                <button onClick={() => setViewMode('yearly')} className={`px-6 py-2 rounded-xl text-[10px] font-black transition-all ${viewMode === 'yearly' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-400 hover:text-white'}`}>연간 분석</button>
+                            <div className="flex bg-slate-50 p-1 rounded-2xl border border-slate-200 mr-4 shadow-sm">
+                                <button onClick={() => setViewMode('monthly')} className={`px-6 py-2 rounded-xl text-[10px] font-black transition-all ${viewMode === 'monthly' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'}`}>월간 분석</button>
+                                <button onClick={() => setViewMode('yearly')} className={`px-6 py-2 rounded-xl text-[10px] font-black transition-all ${viewMode === 'yearly' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'}`}>연간 분석</button>
                             </div>
-                            <button onClick={() => setApplyVat(!applyVat)} className={`flex items-center gap-2 px-6 py-3 rounded-2xl border transition-all text-[10px] font-black mr-4 ${applyVat ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-white/5 border-white/10 text-gray-400'}`}>
-                                <div className={`w-3 h-3 rounded-full ${applyVat ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]' : 'bg-gray-600'}`}></div>
+                            <button onClick={() => setApplyVat(!applyVat)} className={`flex items-center gap-2 px-6 py-3 rounded-2xl border transition-all text-[10px] font-black mr-4 shadow-sm ${applyVat ? 'bg-emerald-50 border-emerald-200 text-emerald-600' : 'bg-white border-slate-200 text-slate-500'}`}>
+                                <div className={`w-3 h-3 rounded-full ${applyVat ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]' : 'bg-slate-300'}`}></div>
                                 10% 부가세 {applyVat ? '공제 중' : '미적용 (간이)'}
                             </button>
-                            <label className="cursor-pointer bg-white/5 hover:bg-white/10 px-6 py-3 rounded-2xl border border-white/10 transition-all text-xs font-black text-gray-400">
+                            <label className="cursor-pointer bg-white hover:bg-slate-50 px-6 py-3 rounded-2xl border border-slate-200 transition-all text-xs font-black text-slate-500 shadow-sm">
                                 📥 불러오기 <input type="file" className="hidden" onChange={handleImport} accept=".json" />
                             </label>
-                            <button onClick={exportYearlyData} className="bg-blue-500/10 hover:bg-blue-500/20 px-6 py-3 rounded-2xl border border-blue-500/20 transition-all text-xs font-black text-blue-400">📁 {filter.year}년 아카이브 저장</button>
-                            <button onClick={() => setIsModalOpen(true)} className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-2xl font-black text-sm shadow-xl shadow-blue-600/20 active:scale-95 transition-all flex items-center gap-2">
+                            <button onClick={exportYearlyData} className="bg-blue-50/50 hover:bg-blue-50 px-6 py-3 rounded-2xl border border-blue-200 transition-all text-xs font-black text-blue-600 shadow-sm">📁 {filter.year}년 아카이브 저장</button>
+                            <button onClick={() => setIsModalOpen(true)} className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-2xl font-black text-sm shadow-lg shadow-blue-500/20 active:scale-95 transition-all flex items-center gap-2">
                                 <Icon name="plus" size={16} /> 신규 기록
                             </button>
                         </div>
@@ -1410,10 +1406,10 @@
                         {/* Trend Chart */}
                         <div className="lg:col-span-8 glass-card rounded-[2.5rem] p-10">
                             <div className="flex justify-between items-center mb-10">
-                                <h2 className="text-xl font-black text-white">{viewMode === 'monthly' ? '수익 및 지출 추이 (6개월)' : `${filter.year}년 월별 금융 현황`}</h2>
-                                <div className="text-[10px] text-gray-500 font-bold uppercase tracking-widest flex items-center gap-4">
-                                    <div className="flex items-center gap-2"><div className="w-2 h-2 bg-blue-500 rounded-full opacity-30"></div> 매출</div>
-                                    <div className="flex items-center gap-2"><div className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div> 순수익</div>
+                                <h2 className="text-xl font-black text-slate-900">{viewMode === 'monthly' ? '수익 및 지출 추이 (6개월)' : `${filter.year}년 월별 금융 현황`}</h2>
+                                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest flex items-center gap-4">
+                                    <div className="flex items-center gap-2"><div className="w-2 h-2 bg-blue-500 rounded-full opacity-50"></div> 매출</div>
+                                    <div className="flex items-center gap-2"><div className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_rgba(16,185,129,0.3)]"></div> 순수익</div>
                                 </div>
                             </div>
                             <div className="h-[250px] w-full">
@@ -1423,7 +1419,7 @@
 
                         {/* Donut Chart (Lead Source) */}
                         <div className="lg:col-span-4 glass-card rounded-[2.5rem] p-10 flex flex-col">
-                            <h2 className="text-xl font-black text-white mb-8">고객 유입 경로</h2>
+                            <h2 className="text-xl font-black text-slate-900 mb-8">고객 유입 경로</h2>
                             <div className="flex-grow flex items-center justify-center">
                                 <DonutChart data={sourceData} />
                             </div>
@@ -1486,15 +1482,15 @@
                         {/* Table View */}
                         {isTableExpanded && (
                             <div className={`lg:col-span-2 glass-card rounded-[2.5rem] overflow-hidden animate-fade-up flex-col h-full ${mobileTab === 'records' ? 'flex' : 'hidden md:flex'}`}>
-                                <div className="p-8 lg:p-10 border-b border-white/5 flex justify-between items-center bg-white/5 shrink-0 z-10 relative flex-wrap gap-4">
+                                <div className="p-8 lg:p-10 border-b border-slate-100 flex justify-between items-center bg-slate-50 shrink-0 z-10 relative flex-wrap gap-4">
                                     <div className="flex items-center gap-4">
                                         <button 
                                             onClick={() => setIsTableExpanded(false)}
-                                            className="p-2.5 bg-white/5 text-gray-500 rounded-xl hover:text-white hover:bg-white/10 transition-all flex lg:hidden"
+                                            className="p-2.5 bg-white text-slate-400 rounded-xl hover:text-slate-900 hover:bg-slate-100 transition-all flex lg:hidden shadow-sm"
                                         >
                                             <Icon name="x" size={16} />
                                         </button>
-                                        <h2 className="text-xl font-black text-white">세부 매출 내역 ({selectedDay ? `${filter.month}월 ${selectedDay}일` : viewMode === 'monthly' ? `${filter.month}월` : `${filter.year}년`})</h2>
+                                        <h2 className="text-xl font-black text-slate-900">세부 매출 내역 ({selectedDay ? `${filter.month}월 ${selectedDay}일` : viewMode === 'monthly' ? `${filter.month}월` : `${filter.year}년`})</h2>
                                     </div>
                                     <div className="flex items-center gap-4">
                                         <div className="relative group flex-1 w-48 md:w-64">
@@ -1503,19 +1499,19 @@
                                                 placeholder="고객/상호명, 내역 검색..."
                                                 value={searchQuery}
                                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                                className="w-full bg-[#0a0a0c]/80 border border-white/10 rounded-xl pl-9 pr-8 py-2 text-xs text-white focus:outline-none focus:border-blue-500 transition-all font-bold placeholder-gray-600 shadow-inner"
+                                                className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-900 focus:outline-none focus:border-blue-500 transition-all font-bold placeholder-slate-400 shadow-sm"
                                             />
-                                            <Icon name="search" size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-500 transition-colors" />
+                                            <Icon name="search" size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" />
                                             {searchQuery && (
-                                                <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"><Icon name="x" size={12}/></button>
+                                                <button onClick={() => setSearchQuery('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-900 transition-colors"><Icon name="x" size={12}/></button>
                                             )}
                                         </div>
-                                        <div className="text-[10px] text-gray-500 font-bold uppercase tracking-widest hidden md:block whitespace-nowrap">{filteredSales.length} Records Found</div>
+                                        <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest hidden md:block whitespace-nowrap">{filteredSales.length} Records Found</div>
                                     </div>
                                 </div>
                                 <div className="flex-1 overflow-auto no-scrollbar relative min-h-0">
                                     <table className="w-full border-collapse hidden md:table">
-                                        <thead className="bg-[#121215]/95 text-[10px] text-gray-500 font-black uppercase tracking-widest text-left sticky top-0 z-20 shadow-xl backdrop-blur-md">
+                                        <thead className="bg-white/95 text-[10px] text-slate-500 font-black uppercase tracking-widest text-left sticky top-0 z-20 shadow-sm backdrop-blur-md">
                                         <tr>
                                             <th className="px-10 py-6">일자</th>
                                             {listLevel === 'detail' && <th className="px-10 py-6">유입 경로</th>}
@@ -1527,31 +1523,31 @@
                                     </thead>
                                     <tbody className="text-sm font-medium">
                                         {filteredSales.length === 0 ? (
-                                            <tr><td colSpan="6" className="px-10 py-20 text-center text-gray-600 font-bold italic">데이터가 존재하지 않습니다.</td></tr>
+                                            <tr><td colSpan="6" className="px-10 py-20 text-center text-slate-400 font-bold italic">데이터가 존재하지 않습니다.</td></tr>
                                         ) : (
                                             filteredSales.map((sale, i) => (
-                                                <tr key={sale.id} className="border-b border-white/5 hover:bg-white/5 transition-colors group">
-                                                    <td className="px-10 py-6 text-gray-500 font-mono whitespace-nowrap">{sale.date}</td>
+                                                <tr key={sale.id} className="border-b border-slate-100 hover:bg-slate-50 transition-colors group">
+                                                    <td className="px-10 py-6 text-slate-500 font-mono whitespace-nowrap">{sale.date}</td>
                                                     {listLevel === 'detail' && (
                                                     <td className="px-10 py-6">
                                                         <div className="flex flex-wrap gap-1 items-center max-w-[150px]">
                                                             {(sale.type === 'expense' ? (Array.isArray(sale.category) ? sale.category : [sale.category]) : [sale.leadSource || '기타']).map((label, idx) => (
-                                                                <div key={idx} className="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded-lg border border-white/5">
+                                                                <div key={idx} className="flex items-center gap-1.5 bg-white px-2 py-1 rounded-lg border border-slate-200 shadow-sm">
                                                                     <div className="w-1.5 h-1.5 rounded-full" style={{ background: (sale.type === 'expense' ? EXPENSE_COLORS[label] : SOURCE_COLORS[label]) || '#64748b' }}></div>
-                                                                    <span className="text-[9px] font-black uppercase text-gray-500 whitespace-nowrap">{label}</span>
+                                                                    <span className="text-[9px] font-black uppercase text-slate-500 whitespace-nowrap">{label}</span>
                                                                 </div>
                                                             ))}
                                                         </div>
                                                     </td>
                                                     )}
-                                                    <td className={`px-10 py-6 font-black ${listLevel === 'simple' ? 'text-gray-300' : 'text-white'}`}>
+                                                    <td className={`px-10 py-6 font-black ${listLevel === 'simple' ? 'text-slate-600' : 'text-slate-900'}`}>
                                                         <div className="flex items-center gap-3">
                                                             {sale.client}
                                                             {listLevel === 'simple' && (
-                                                                <span className="text-[10px] font-bold text-gray-500 bg-white/5 px-2 py-0.5 rounded-md border border-white/10 uppercase tracking-widest">{sale.type === 'expense' ? '지출' : '매출'}</span>
+                                                                <span className="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md border border-slate-200 uppercase tracking-widest">{sale.type === 'expense' ? '지출' : '매출'}</span>
                                                             )}
                                                             {listLevel === 'simple' && sale.status === '미입금' && (
-                                                                <span className="text-[9px] font-bold text-orange-400 bg-orange-500/10 px-2 py-0.5 rounded-md border border-orange-500/20">미입금</span>
+                                                                <span className="text-[9px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-md border border-orange-200">미입금</span>
                                                             )}
                                                         </div>
                                                     </td>
@@ -1562,15 +1558,15 @@
                                                     )}
                                                     {listLevel === 'detail' && (
                                                     <td className="px-10 py-6">
-                                                        <span className={`text-[10px] font-black ${sale.type === 'expense' ? 'text-gray-500' :
+                                                        <span className={`text-[10px] font-black ${sale.type === 'expense' ? 'text-slate-400' :
                                                                 sale.status === '입금완료' ? 'text-emerald-500' :
-                                                                    sale.status === '미입금' ? 'text-orange-400' : 'text-gray-500'
+                                                                    sale.status === '미입금' ? 'text-orange-500' : 'text-slate-400'
                                                             }`}>{sale.type === 'expense' ? '지출' : sale.status}</span>
                                                     </td>
                                                     )}
                                                     {listLevel === 'detail' && (
                                                     <td className="px-10 py-6 text-right">
-                                                        <button onClick={() => deleteSale(sale.id)} className="text-gray-700 hover:text-red-500 transition-colors">
+                                                        <button onClick={() => deleteSale(sale.id)} className="text-slate-400 hover:text-red-500 transition-colors">
                                                             <Icon name="trash-2" size={16} />
                                                         </button>
                                                     </td>
@@ -1583,35 +1579,35 @@
                                 {/* Mobile Card List */}
                                 <div className="md:hidden p-6 space-y-4 pb-24">
                                     {filteredSales.length === 0 ? (
-                                        <div className="text-center py-20 text-gray-600 font-bold italic">데이터가 존재하지 않습니다.</div>
+                                        <div className="text-center py-20 text-slate-400 font-bold italic">데이터가 존재하지 않습니다.</div>
                                     ) : (
                                         filteredSales.map(sale => (
-                                            <div key={sale.id} className="bg-white/5 border border-white/10 rounded-2xl p-4 flex flex-col gap-3 group transition-all">
+                                            <div key={sale.id} className="bg-white border border-slate-100 rounded-2xl p-4 flex flex-col gap-3 group transition-all shadow-sm">
                                                 <div className="flex justify-between items-start">
                                                     <div className="flex items-center gap-2">
-                                                        <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest ${sale.type==='expense'?'bg-rose-500/10 text-rose-500 border border-rose-500/20':'bg-blue-500/10 text-blue-500 border border-blue-500/20'}`}>
+                                                        <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest ${sale.type==='expense'?'bg-rose-50 text-rose-600 border border-rose-200':'bg-blue-50 text-blue-600 border border-blue-200'}`}>
                                                             {sale.type==='expense'?'지출':'매출'}
                                                         </span>
-                                                        {sale.type!=='expense'&&<span className={`text-[10px] font-black ${sale.status==='입금완료'?'text-emerald-500':sale.status==='미입금'?'text-orange-500':'text-gray-400'}`}>{sale.status}</span>}
+                                                        {sale.type!=='expense'&&<span className={`text-[10px] font-black ${sale.status==='입금완료'?'text-emerald-500':sale.status==='미입금'?'text-orange-500':'text-slate-400'}`}>{sale.status}</span>}
                                                     </div>
                                                     {listLevel === 'detail' && (
-                                                        <button onClick={()=>deleteSale(sale.id)} className="text-gray-500 hover:text-red-500 p-1.5 rounded-lg hover:bg-white/5 opacity-50 group-hover:opacity-100 transition-all">
+                                                        <button onClick={()=>deleteSale(sale.id)} className="text-slate-400 hover:text-red-500 p-1.5 rounded-lg hover:bg-slate-50 opacity-50 group-hover:opacity-100 transition-all">
                                                             <Icon name="trash-2" size={15} />
                                                         </button>
                                                     )}
                                                 </div>
                                                 <div className="flex justify-between items-end gap-2">
                                                     <div>
-                                                        <h3 className="text-sm font-black text-white mb-2">{sale.client}</h3>
+                                                        <h3 className="text-sm font-black text-slate-900 mb-2">{sale.client}</h3>
                                                         <div className="flex flex-wrap gap-1">
-                                                            <span className="text-[10px] font-bold text-gray-400 bg-white/5 border border-white/5 px-2 py-0.5 rounded-full whitespace-nowrap">{sale.date}</span>
+                                                            <span className="text-[10px] font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full whitespace-nowrap">{sale.date}</span>
                                                             {listLevel === 'detail' && (sale.type==='expense'?(Array.isArray(sale.category)?sale.category:[sale.category]):[sale.leadSource||'기타']).map((label,idx)=>(
-                                                                <span key={idx} className="text-[10px] font-bold text-gray-500 bg-white/5 border border-white/10 px-2 py-0.5 rounded-full whitespace-nowrap">#{label}</span>
+                                                                <span key={idx} className="text-[10px] font-bold text-slate-500 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-full whitespace-nowrap">#{label}</span>
                                                             ))}
                                                         </div>
                                                     </div>
                                                     {listLevel === 'detail' && (
-                                                        <span className={`text-lg font-brand font-black shrink-0 ${sale.type==='expense'?'text-rose-500':'text-blue-500'}`}>
+                                                        <span className={`text-lg font-brand font-black shrink-0 ${sale.type==='expense'?'text-rose-500':'text-blue-600'}`}>
                                                             {sale.type==='expense'?'-':''}{Number(sale.amount).toLocaleString()}원
                                                         </span>
                                                     )}
