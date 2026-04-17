@@ -365,19 +365,26 @@
         );
 
         // ── MobileHeader with drawer ──
-        const MobileHeader = ({ filter, viewMode, setViewMode, applyVat, setApplyVat, handleImport, exportYearlyData, setIsModalOpen, onGoHome, onMobileTabChange }) => {
+        const MobileHeader = ({ filter, viewMode, setViewMode, applyVat, setApplyVat, handleImport, exportYearlyData, setIsModalOpen, onGoHome, mobileTab, setMobileTab }) => {
             const [drawerOpen, setDrawerOpen] = useState(false);
             return (
                 <>
-                    <header className="header-mobile items-center justify-between px-4 py-3 border-b border-slate-100 sticky top-0 z-50 bg-white/90 backdrop-blur-md">
-                        <button onClick={onGoHome} className="p-2 text-slate-400 hover:text-slate-900 transition">
+                    <header className="header-mobile items-center justify-between px-4 py-3 border-b border-slate-100 sticky top-0 z-50 bg-white/90 backdrop-blur-md truncate">
+                        <button onClick={mobileTab === 'home' || !mobileTab ? onGoHome : () => setMobileTab('home')} className="p-2 text-slate-400 hover:text-slate-900 transition flex items-center gap-1.5 shrink-0">
                             <Icon name="arrow-left" size={20} />
+                            {mobileTab !== 'home' && mobileTab && <span className="text-[10px] font-black uppercase text-slate-500 tracking-widest hidden sm:block">뒤로</span>}
                         </button>
-                        <div className="flex items-center gap-2">
-                            <img src="assets/logo.png" alt="CLEV" className="w-8 h-8 object-contain" style={{filter: 'invert(1)'}} />
-                            <span className="font-brand font-black text-slate-900 text-lg tracking-tighter">CLEV <span className="text-slate-400 font-light">SALES</span></span>
+                        <div className="flex items-center gap-2 justify-center flex-1 mx-2 overflow-hidden truncate">
+                            {mobileTab === 'home' || !mobileTab ? (
+                                <>
+                                    <img src="assets/logo.png" alt="CLEV" className="w-8 h-8 object-contain shrink-0" style={{filter: 'invert(1)'}} />
+                                    <span className="font-brand font-black text-slate-900 text-lg tracking-tighter truncate">CLEV <span className="text-slate-400 font-light">SALES</span></span>
+                                </>
+                            ) : (
+                                <span className="font-brand font-black text-slate-900 text-base truncate">{mobileTab === 'calendar' ? '달력 보기' : '전체 내역'}</span>
+                            )}
                         </div>
-                        <button onClick={() => setDrawerOpen(true)} className="p-2 text-slate-400 hover:text-slate-900 transition">
+                        <button onClick={() => setDrawerOpen(true)} className="p-2 text-slate-400 hover:text-slate-900 transition shrink-0">
                             <Icon name="menu" size={22} />
                         </button>
                     </header>
@@ -1186,7 +1193,7 @@
 
         const App = () => {
             const { sales, addSale, deleteSale, importData } = useSalesDB();
-            const [view, setView] = useState('start'); // 'start' or 'dashboard'
+            const [view, setView] = useState(() => sessionStorage.getItem('clev_auth') === 'true' ? 'dashboard' : 'start'); // 'start' or 'dashboard'
             const [isModalOpen, setIsModalOpen] = useState(false);
             const [isDayModalOpen, setIsDayModalOpen] = useState(false);
             const [isTableExpanded, setIsTableExpanded] = useState(true);
@@ -1341,8 +1348,16 @@
             };
 
             if (view === 'start') {
-                return <StartPage onLaunch={() => setView('dashboard')} stats={startStats} />;
+                return <StartPage onLaunch={() => {
+                    sessionStorage.setItem('clev_auth', 'true');
+                    setView('dashboard');
+                }} stats={startStats} />;
             }
+            
+            const goBackToStart = () => {
+                sessionStorage.removeItem('clev_auth');
+                setView('start');
+            };
 
             return (
                 <>
@@ -1356,14 +1371,16 @@
                         handleImport={handleImport}
                         exportYearlyData={exportYearlyData}
                         setIsModalOpen={setIsModalOpen}
-                        onGoHome={() => setView('start')}
+                        onGoHome={goBackToStart}
+                        mobileTab={mobileTab}
+                        setMobileTab={setMobileTab}
                     />
 
                     <div className="min-h-screen px-6 py-12 md:px-12 lg:px-24 animate-fade-up main-content">
                         {/* Desktop Header */}
                         <header className="header-desktop flex-col md:flex-row justify-between items-center mb-16 gap-8 animate-fade-up">
                         <div className="flex items-center space-x-4">
-                            <button onClick={() => setView('start')} className="mr-4 px-5 py-3 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 hover:border-blue-500 rounded-2xl text-blue-400 hover:text-white transition-all shadow-lg hover:shadow-blue-500/25 active:scale-95 flex items-center gap-2 group" title="첫 페이지로 돌아가기">
+                            <button onClick={goBackToStart} className="mr-4 px-5 py-3 bg-blue-600/10 hover:bg-blue-600 border border-blue-500/20 hover:border-blue-500 rounded-2xl text-blue-400 hover:text-white transition-all shadow-lg hover:shadow-blue-500/25 active:scale-95 flex items-center gap-2 group" title="첫 페이지로 돌아가기">
                                 <Icon name="arrow-left" size={18} className="group-hover:-translate-x-1 transition-transform" />
                                 <span className="text-xs font-black uppercase tracking-widest">Back</span>
                             </button>
@@ -1395,7 +1412,7 @@
                     </header>
 
                     {/* Mobile Quick Actions */}
-                    <div className={`grid grid-cols-4 gap-3 mb-8 animate-fade-up ${mobileTab === 'home' ? 'grid md:hidden' : 'hidden'}`}>
+                    <div className={`grid grid-cols-3 gap-3 mb-8 animate-fade-up ${mobileTab === 'home' ? 'grid md:hidden' : 'hidden'}`}>
                         <button onClick={() => setIsModalOpen(true)} className="flex flex-col items-center justify-center py-4 px-2 bg-white border border-slate-100 rounded-[2rem] shadow-sm text-blue-600 gap-2 active:scale-95 transition-all">
                             <div className="bg-blue-50 w-12 h-12 rounded-2xl flex items-center justify-center"><Icon name="plus" size={20} /></div>
                             <span className="text-[10px] font-black text-slate-600 uppercase tracking-tight">신규기록</span>
@@ -1408,10 +1425,14 @@
                             <div className="bg-rose-50 w-12 h-12 rounded-2xl flex items-center justify-center"><Icon name="list" size={20} /></div>
                             <span className="text-[10px] font-black text-slate-600 uppercase tracking-tight">전체내역</span>
                         </button>
-                        <button onClick={() => setDrawerOpen((prev) => !prev)} className="flex flex-col items-center justify-center py-4 px-2 bg-white border border-slate-100 rounded-[2rem] shadow-sm text-slate-600 gap-2 active:scale-95 transition-all">
-                            <div className="bg-slate-50 w-12 h-12 rounded-2xl flex items-center justify-center"><Icon name="settings" size={20} /></div>
-                            <span className="text-[10px] font-black text-slate-600 uppercase tracking-tight">설정메뉴</span>
-                        </button>
+                    </div>
+
+                    {/* Dashboard Cards Title & Swipe Cue (Mobile only) */}
+                    <div className={`flex md:hidden justify-between items-end mb-3 ${mobileTab === 'home' ? 'flex' : 'hidden'}`}>
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none flex items-center gap-1"><Icon name="bar-chart-3" size={12}/> 요약 통계</span>
+                        <div className="flex items-center gap-1 text-[10px] text-blue-500 font-black bg-blue-50 px-3 py-1.5 rounded-full animate-pulse-soft">
+                            옆으로 넘기기 <Icon name="arrow-right" size={12} />
+                        </div>
                     </div>
 
                     {/* Dashboard Cards (Swipeable on Mobile) */}
