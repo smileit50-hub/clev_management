@@ -1394,12 +1394,32 @@
                         </div>
                     </header>
 
-                    {/* Dashboard Cards */}
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 animate-fade-up ${mobileTab === 'home' ? 'grid' : 'hidden md:grid'}`} style={{ animationDelay: '0.1s' }}>
-                        <Card title={selectedDay ? `${filter.month}월 ${selectedDay}일 매출` : viewMode === 'monthly' ? `${filter.month}월 입금액` : `${filter.year}년 총 매출`} value={totalIncome.toLocaleString() + '원'} sub="Gross Total revenue" icon="bar-chart-3" colorClass="from-blue-500 to-blue-700" />
-                        <Card title="총 지출 내역" value={totalExpense.toLocaleString() + '원'} sub="Total operational costs" icon="credit-card" colorClass="from-rose-500 to-red-700" />
-                        <Card title="순수익 (실제)" value={netProfit.toLocaleString() + '원'} sub={applyVat ? "VAT 10% Included" : "Net After Expenses"} icon="trending-up" colorClass="from-emerald-500 to-teal-700" />
-                        <Card title="동일 기간 작업" value={filteredSales.filter(s => (s.type || 'income') === 'income').length + '건'} sub="Finished projects" icon="layers" colorClass="from-gray-700 to-gray-900" />
+                    {/* Mobile Quick Actions */}
+                    <div className={`grid grid-cols-4 gap-3 mb-8 animate-fade-up ${mobileTab === 'home' ? 'grid md:hidden' : 'hidden'}`}>
+                        <button onClick={() => setIsModalOpen(true)} className="flex flex-col items-center justify-center py-4 px-2 bg-white border border-slate-100 rounded-[2rem] shadow-sm text-blue-600 gap-2 active:scale-95 transition-all">
+                            <div className="bg-blue-50 w-12 h-12 rounded-2xl flex items-center justify-center"><Icon name="plus" size={20} /></div>
+                            <span className="text-[10px] font-black text-slate-600 uppercase tracking-tight">신규기록</span>
+                        </button>
+                        <button onClick={() => setMobileTab('calendar')} className="flex flex-col items-center justify-center py-4 px-2 bg-white border border-slate-100 rounded-[2rem] shadow-sm text-emerald-600 gap-2 active:scale-95 transition-all">
+                            <div className="bg-emerald-50 w-12 h-12 rounded-2xl flex items-center justify-center"><Icon name="calendar" size={20} /></div>
+                            <span className="text-[10px] font-black text-slate-600 uppercase tracking-tight">달력보기</span>
+                        </button>
+                        <button onClick={() => setMobileTab('records')} className="flex flex-col items-center justify-center py-4 px-2 bg-white border border-slate-100 rounded-[2rem] shadow-sm text-rose-500 gap-2 active:scale-95 transition-all">
+                            <div className="bg-rose-50 w-12 h-12 rounded-2xl flex items-center justify-center"><Icon name="list" size={20} /></div>
+                            <span className="text-[10px] font-black text-slate-600 uppercase tracking-tight">전체내역</span>
+                        </button>
+                        <button onClick={() => setDrawerOpen((prev) => !prev)} className="flex flex-col items-center justify-center py-4 px-2 bg-white border border-slate-100 rounded-[2rem] shadow-sm text-slate-600 gap-2 active:scale-95 transition-all">
+                            <div className="bg-slate-50 w-12 h-12 rounded-2xl flex items-center justify-center"><Icon name="settings" size={20} /></div>
+                            <span className="text-[10px] font-black text-slate-600 uppercase tracking-tight">설정메뉴</span>
+                        </button>
+                    </div>
+
+                    {/* Dashboard Cards (Swipeable on Mobile) */}
+                    <div className={`flex overflow-x-auto snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 pb-4 md:pb-0 mb-8 md:mb-12 animate-fade-up no-scrollbar -mx-6 px-6 sm:mx-0 sm:px-0 ${mobileTab === 'home' ? 'flex' : 'hidden md:grid'}`} style={{ animationDelay: '0.1s' }}>
+                        <div className="snap-center shrink-0 w-[85vw] sm:w-auto h-full"><Card title={selectedDay ? `${filter.month}월 ${selectedDay}일 매출` : viewMode === 'monthly' ? `${filter.month}월 입금액` : `${filter.year}년 총 매출`} value={totalIncome.toLocaleString() + '원'} sub="Gross Total revenue" icon="bar-chart-3" colorClass="from-blue-500 to-blue-700" /></div>
+                        <div className="snap-center shrink-0 w-[85vw] sm:w-auto h-full"><Card title="총 지출 내역" value={totalExpense.toLocaleString() + '원'} sub="Total operational costs" icon="credit-card" colorClass="from-rose-500 to-red-700" /></div>
+                        <div className="snap-center shrink-0 w-[85vw] sm:w-auto h-full"><Card title="순수익 (실제)" value={netProfit.toLocaleString() + '원'} sub={applyVat ? "VAT 10% Included" : "Net After Expenses"} icon="trending-up" colorClass="from-emerald-500 to-teal-700" /></div>
+                        <div className="snap-center shrink-0 w-[85vw] sm:w-auto h-full"><Card title="동일 기간 작업" value={filteredSales.filter(s => (s.type || 'income') === 'income').length + '건'} sub="Finished projects" icon="layers" colorClass="from-gray-700 to-gray-900" /></div>
                     </div>
 
                     <div className={`grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 animate-fade-up ${mobileTab === 'home' ? 'grid' : 'hidden md:grid'}`} style={{ animationDelay: '0.2s' }}>
